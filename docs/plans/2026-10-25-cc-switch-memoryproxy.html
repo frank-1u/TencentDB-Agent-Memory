@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>CC Switch × MemoryProxy · 官方模型与团队记忆方案</title>
+  <style>
+    :root{--bg:#f4f5f9;--paper:#fff;--ink:#182238;--muted:#657189;--line:#e1e6ef;--blue:#365ee9;--blue-soft:#edf2ff;--green:#147c68;--green-soft:#e9f7f1;--amber:#9a5e0d;--amber-soft:#fff5df;--radius:20px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:30px}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}a{color:var(--blue);text-underline-offset:4px}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #7b9cff;outline-offset:4px}code,pre,.mono{font-family:"Cascadia Code",Consolas,monospace}code{font-size:.86em;overflow-wrap:anywhere}p{margin:0 0 14px}h1,h2,h3{line-height:1.35;letter-spacing:-.025em}h1{font-size:clamp(30px,4.3vw,54px);margin:18px 0 22px}h2{font-size:26px;margin:0 0 12px}h3{font-size:18px;margin:0 0 10px}.shell{max-width:1280px;margin:auto;padding:30px 36px 60px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;padding-bottom:25px;border-bottom:1px solid var(--line)}.brand{font-weight:750;letter-spacing:.03em;display:flex;align-items:center;gap:12px}.mark{width:30px;height:30px;background:var(--blue);border-radius:9px;display:grid;place-items:center;color:white;font-size:20px}.toplinks{display:flex;gap:24px;font-size:13px}.toplinks a{text-decoration:none;color:var(--muted)}.hero{display:grid;grid-template-columns:1.6fr 1fr;gap:56px;padding:48px 0 36px;align-items:center}.eyebrow{font-size:12px;letter-spacing:.1em;color:var(--blue);font-weight:750}.lead{font-size:17px;color:var(--muted);max-width:670px}.verdict{padding:26px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 30px #1c356007}.verdict strong{display:block;font-size:21px;margin:12px 0}.tag{display:inline-flex;align-items:center;gap:6px;border-radius:30px;background:var(--blue-soft);color:var(--blue);font-size:12px;padding:4px 10px;font-weight:650}.tag.amber{background:var(--amber-soft);color:var(--amber)}.tag.green{background:var(--green-soft);color:var(--green)}.muted{color:var(--muted)}.small{font-size:13px}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}.fact{padding:18px 21px;border:1px solid var(--line);border-radius:14px;background:#ffffff80}.fact span{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}.fact strong{font-size:14px;overflow-wrap:anywhere}.section{margin-top:42px}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:18px}.sectionhead p{color:var(--muted);margin:0}.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}.tabs{display:flex;gap:8px;padding:17px 20px;border-bottom:1px solid var(--line);background:#fafbfe}.tab{border:1px solid transparent;border-radius:11px;padding:10px 16px;background:transparent;color:var(--muted);font-weight:650;text-align:left}.tab[aria-selected="true"]{background:white;color:var(--blue);border-color:#ccd8ff;box-shadow:0 2px 7px #365ee90b}.tab small{display:block;font-size:11px;font-weight:400;margin-top:2px}.flowheading{display:flex;justify-content:space-between;gap:20px;padding:24px 28px 4px}.flowheading h3{margin-bottom:7px}.flowheading p{margin:0;color:var(--muted);font-size:14px}.diagramwrap{overflow-x:auto;padding:4px 16px 0}.diagram{display:block;width:100%;min-width:780px}.diagram text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}.flowfooter{display:grid;grid-template-columns:1fr 1fr;gap:18px;padding:0 28px 25px}.callout{padding:15px 18px;border-radius:12px;background:var(--blue-soft);font-size:13px}.callout.amber{background:var(--amber-soft);color:#80541d}.callout strong{display:block;margin-bottom:4px}.stepbox{display:grid;grid-template-columns:280px 1fr;gap:28px;padding:25px 28px;border-top:1px solid var(--line);background:#fcfdff}.stepnav{display:grid;gap:7px}.step{display:flex;gap:10px;align-items:center;text-align:left;border:0;background:transparent;color:var(--muted);padding:8px 10px;border-radius:10px;font-size:13px}.step .num{width:24px;height:24px;border-radius:50%;background:#e9edf4;display:grid;place-items:center;font-size:11px;flex:none}.step[aria-pressed="true"]{color:var(--blue);background:var(--blue-soft)}.step[aria-pressed="true"] .num{background:var(--blue);color:#fff}.stepdetail{padding:6px 0}.stepdetail .eyebrow{margin-bottom:8px}.stepdetail p{max-width:680px}.credential{display:inline-block;background:#f0f3f8;border-radius:7px;padding:7px 11px;font:12px/1.7 Consolas,monospace;overflow-wrap:anywhere}.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:25px 27px}.card ul{margin:10px 0 0;padding-left:21px}.card li{margin:8px 0;color:var(--muted)}.card li strong{color:var(--ink)}.number{color:#b0bcd0;font-size:12px;font-weight:750;letter-spacing:.1em;margin-bottom:12px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;background:white;font-size:13px}th,td{padding:15px 19px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#f8faff;color:var(--muted);font-weight:650}tbody tr:last-child td{border:0}.recommend{background:#f3f6ff}.check{color:var(--green);font-weight:650}.pending{color:var(--amber);font-weight:650}.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.phase{padding:23px;border-radius:16px;background:var(--paper);border:1px solid var(--line)}.phase h3{font-size:17px}.phase p{font-size:13px;color:var(--muted)}.phase .accept{padding-top:13px;margin-top:16px;border-top:1px solid var(--line);font-size:12px}.notice{display:flex;gap:14px;padding:18px 21px;border:1px solid #ebd6a6;background:#fffbf1;border-radius:14px;margin-top:18px;font-size:13px}.notice b{white-space:nowrap;color:var(--amber)}details{margin-top:16px;background:white;border:1px solid var(--line);border-radius:14px;padding:18px 22px}summary{font-weight:650;cursor:pointer}details[open] summary{margin-bottom:17px}pre{font-size:12px;line-height:1.85;overflow:auto;background:#182238;color:#dfe7ff;padding:20px;border-radius:12px;white-space:pre}.sources{display:grid;grid-template-columns:1fr 1fr;gap:16px}.source{font-size:13px;background:white;border:1px solid var(--line);border-radius:13px;padding:18px 21px}.source p{color:var(--muted);margin:7px 0 0}.source a{font-weight:650}.footer{display:flex;justify-content:space-between;gap:20px;margin-top:40px;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:12px}.printbtn{border:1px solid var(--line);background:white;padding:7px 14px;border-radius:9px;color:var(--muted)}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+    .overview-note{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:19px 27px;border-top:1px solid var(--line);background:#fcfdff}.overview-note p{margin:0}.demo-controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.demo-status{font-size:12px;color:var(--green);margin-top:11px;min-height:22px}.contract{padding:23px 27px;border-top:1px solid var(--line)}.contract ul{padding-left:20px;margin-bottom:0}.contract li{margin:9px 0}.cols>*{min-width:0}
+    @media(max-width:860px){.shell{padding:22px 20px 40px}.hero{grid-template-columns:1fr;gap:20px;padding-top:32px}.facts{grid-template-columns:1fr}.cols,.flowfooter,.sources{grid-template-columns:1fr}.phases{grid-template-columns:1fr}.stepbox{grid-template-columns:1fr;gap:18px}.stepnav{grid-template-columns:1fr 1fr}.topbar{flex-wrap:wrap}.toplinks{gap:13px;flex-wrap:wrap}.tabs{overflow:auto}.tab{white-space:nowrap;padding:9px 12px}.flowheading{flex-direction:column;gap:8px}.sectionhead{display:block}.sectionhead p{margin-top:8px}.footer,.overview-note{flex-direction:column}.overview-note{align-items:start}}
+    @media print{body{background:white;font-size:11px}.shell{max-width:none;padding:0}.toplinks,.printbtn,.stepnav{display:none}.hero{padding-top:20px;gap:20px}h1{font-size:32px}.section{margin-top:24px}.panel,.card,.phase,.source,.verdict{box-shadow:none}.card,.phase,.source{break-inside:avoid}.diagram{min-width:0}.stepbox{display:block}.tabs{padding:10px}.tab{padding:6px 10px}.tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}a{color:inherit}.footer{margin-top:20px}.notice{break-inside:avoid}}
+  </style>
+</head>
+<body>
+<main class="shell">
+  <header class="topbar">
+    <div class="brand"><span class="mark" aria-hidden="true">↗</span> MEMORY × ROUTE <span class="tag">方案讨论</span></div>
+    <nav class="toplinks" aria-label="页面导航"><a href="#concurrent">并发路由</a><a href="#flows">单请求流程</a><a href="#integration">接入设计</a><a href="#worktrees">Worktree 共享</a><a href="#validation">验证顺序</a><a href="#sources">证据</a></nav>
+  </header>
+  <div class="notice"><b>当前采用</b><span>编码请求经 cc-Switch，记忆加工继续使用独立 API；聚合记忆方案不继续推进。Orca worktree 复用同一逻辑项目的 Team / 业务 Agent 与 CodeGraph 资产，详见 <a href="#worktrees">Worktree 共享说明</a>。</span></div>
+  <section class="hero">
+    <div><div class="eyebrow">CC SWITCH + TENCENTDB AGENT MEMORY</div><h1>各用各的模型，<br>共享独立的记忆层。</h1><p class="lead">Codex 走官方 GPT 订阅，Claude Code 同时走 GLM。两类推理请求都由 cc-Switch 按应用选择供应商；MemoryProxy 处理记忆，后台记忆模型继续使用独立的 MEMORY_LLM_* 配置。</p><span class="tag green">按应用隔离机制已核对</span> <span class="tag amber">接入代码待实现 · 尚未联调</span></div>
+    <aside class="verdict"><span class="eyebrow">更新后的推荐</span><strong>在 MemoryProxy 增加 cc-Switch 上游模式。</strong><p class="muted small">通过现有 HTTP 路由接入 cc-Switch：Responses 归 Codex，Messages 归 Claude。由 cc-Switch 保管对应供应商配置、模型映射与真实上游凭据。</p><p class="small" style="margin:0">原生 Codex 仍需双凭据适配；还要处理 Proxy 内部任务草稿与模型发现，避免它们继续回用编码模型或本地价格目录。</p></aside>
+  </section>
+  <div class="facts">
+    <div class="fact"><span>已读取的客户端配置 · 仅配置事实</span><strong><code>127.0.0.1:15721/v1</code></strong><div class="small muted">custom / Responses / requires_openai_auth=true</div></div>
+    <div class="fact"><span>CC Switch 源码快照</span><strong><code>de0a235 · main · 工作区干净</code></strong><div class="small muted">/home/v-lushuai/Codes/cc-switch</div></div>
+    <div class="fact"><span>Agent Memory 源码快照</span><strong><code>6a4bb55 · feat/server_team</code></strong><div class="small muted">部署 .env 不存在；本次未启动或验证记忆服务</div></div>
+  </div>
+
+  <section class="section" id="concurrent">
+    <div class="sectionhead"><div><div class="eyebrow">01 / CONCURRENT APPLICATIONS</div><h2>同一个路由端口，两套独立供应商</h2></div><p class="small">你的并发使用场景 · 目标拓扑，非运行验证结果。</p></div>
+    <div class="panel">
+      <div class="flowheading"><div><h3>推理请求按 coding-agent 应用分流，记忆加工独立运行</h3><p>cc-Switch 先由请求入口确定 app_type，再读取该应用当前供应商；不靠模型名或 Key 猜客户端。</p></div><span class="tag">两条请求可同时执行</span></div>
+      <div class="diagramwrap"><svg class="diagram" viewBox="0 0 1120 540" role="img" aria-labelledby="parallel-title parallel-desc">
+        <title id="parallel-title">Codex 与 Claude Code 独立选择供应商，记忆模型使用另一组配置</title><desc id="parallel-desc">Codex 经 MemoryProxy 到 cc-Switch 的 responses 入口并使用官方订阅，Claude Code 经同一 MemoryProxy 到 messages 入口并使用 GLM。Memory Core 与 Knowledge 另行调用 MEMORY_LLM 配置的模型。</desc>
+        <defs><marker id="parallel-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#879bbf" stroke-width="1.4"/></marker></defs>
+        <g fill="#fafbfe" stroke="#dbe2ed" stroke-dasharray="5 4"><rect x="265" y="43" width="250" height="282" rx="17"/><rect x="555" y="43" width="265" height="282" rx="17"/></g>
+        <g fill="#657189" font-size="12" text-anchor="middle"><text x="390" y="28">同一 MemoryProxy · :8096</text><text x="687" y="28">同一 cc-Switch · :15721</text></g>
+        <g fill="#edf2ff" stroke="#cbd7ff"><rect x="15" y="69" width="210" height="91" rx="13"/><rect x="282" y="69" width="216" height="91" rx="13"/><rect x="572" y="69" width="231" height="91" rx="13"/><rect x="865" y="69" width="240" height="91" rx="13"/></g>
+        <g fill="#365ee9" font-size="16" font-weight="650"><text x="31" y="99">Codex</text><text x="297" y="99">/codex/default</text><text x="588" y="99">/v1/responses</text><text x="881" y="99" id="demo-codex-provider">GPT 官方订阅</text></g>
+        <g fill="#657189" font-size="11"><text x="31" y="125">OAuth + 独立记忆身份头</text><text x="297" y="125">记忆鉴权 / 注入 / 归档</text><text x="588" y="125">app_type = codex</text><text x="881" y="125">Codex 页：OpenAI Official</text><text x="31" y="145">Responses / SSE</text><text x="297" y="145">OAuth 保留 · 待适配</text><text x="588" y="145">该应用自己的当前供应商</text><text x="881" y="145">客户端 OAuth → 官方后端</text></g>
+        <g fill="#f2efff" stroke="#dad1f4"><rect x="15" y="207" width="210" height="91" rx="13"/><rect x="282" y="207" width="216" height="91" rx="13"/><rect x="572" y="207" width="231" height="91" rx="13"/><rect x="865" y="207" width="240" height="91" rx="13"/></g>
+        <g fill="#7550b4" font-size="16" font-weight="650"><text x="31" y="237">Claude Code</text><text x="297" y="237">/claude-code/default</text><text x="588" y="237">/v1/messages</text><text x="881" y="237" id="demo-claude-provider">GLM</text></g>
+        <g fill="#657189" font-size="11"><text x="31" y="263">记忆 user_key · sk-mem</text><text x="297" y="263">记忆鉴权 / 注入 / 归档</text><text x="588" y="263">app_type = claude</text><text x="881" y="263" id="demo-claude-caption">Claude 页：GLM 供应商配置</text><text x="31" y="283">Anthropic Messages / SSE</text><text x="297" y="283">共用 Core，保留各自 session</text><text x="588" y="283">该应用自己的当前供应商</text><text x="881" y="283">cc-Switch 注入真实供应商 Key</text></g>
+        <g stroke="#879bbf" stroke-width="1.6" fill="none" marker-end="url(#parallel-arrow)"><path d="M232 114 H271"/><path d="M505 114 H561"/><path d="M827 114 H854"/><path d="M232 252 H271"/><path d="M505 252 H561"/><path d="M827 252 H854"/></g>
+        <path d="M390 325 V393" fill="none" stroke="#147c68" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#parallel-arrow)"/><text x="410" y="366" fill="#147c68" font-size="12">读写资产、归档与后台加工</text>
+        <g fill="#eaf7f1" stroke="#c6e4d7"><rect x="235" y="403" width="310" height="89" rx="14"/><rect x="745" y="403" width="360" height="89" rx="14"/></g>
+        <g fill="#147c68" font-size="16" font-weight="650"><text x="253" y="434">Memory Core / Knowledge</text><text x="763" y="434" id="demo-memory-provider">独立记忆模型 · MEMORY_LLM_*</text></g>
+        <g fill="#657189" font-size="11"><text x="253" y="459">记忆抽取 / 摘要 / 知识加工</text><text x="253" y="480">业务 Agent 与 Team 决定资产归属</text><text x="763" y="459">BASE_URL / API_KEY / MODEL / PROTOCOL</text><text x="763" y="480">切换 Claude 或 Codex 供应商不改变这组配置</text></g>
+        <path d="M554 447 H733" stroke="#147c68" stroke-width="1.6" fill="none" marker-end="url(#parallel-arrow)"/><text x="642" y="431" text-anchor="middle" fill="#147c68" font-size="11">独立调用</text>
+        <text x="560" y="524" text-anchor="middle" fill="#657189" font-size="11">主推模式：MemoryProxy 不再替 coding 请求选择模型；cc-Switch 独占供应商与模型映射决策。</text>
+      </svg></div>
+      <div class="overview-note"><div><strong>演示一次按应用切换</strong><p class="small muted">只更新图中的 Claude 目标，Codex 与记忆模型保持原值。演示不调用模型，不修改本机配置。</p><div class="demo-status" id="demo-status" aria-live="polite">当前演示：Codex = 官方订阅；Claude = GLM；记忆模型 = 独立配置。</div></div><button class="printbtn" type="button" id="demo-switch-claude">演示切换 Claude 供应商</button></div>
+      <div class="tablewrap"><table><thead><tr><th>客户端来源</th><th>MemoryProxy 入口</th><th>cc-Switch HTTP 入口</th><th>由谁决定真实供应商</th></tr></thead><tbody><tr><td>Codex</td><td><code>/codex/default</code></td><td><code>POST /v1/responses</code></td><td><code>app_type=codex</code> 对应的配置</td></tr><tr><td>Claude Code</td><td><code>/claude-code/default</code></td><td><code>POST /v1/messages</code></td><td><code>app_type=claude</code> 对应的配置</td></tr><tr><td>记忆后台任务</td><td>Core / Knowledge / 专用草稿配置</td><td>不进入 coding 请求路由</td><td><code>MEMORY_LLM_*</code> 独立配置</td></tr></tbody></table></div>
+    </div>
+    <div class="notice"><b>隔离的单位</b><span>cc-Switch 的 <code>claude / codex</code> 是客户端应用类型，不是 MemoryCore 里的业务 Agent ID。两个 Claude Code 会话默认共享 Claude 当前供应商；同类型客户端同时用不同供应商，需要另用聚合标识或实例隔离。图中的 GPT / GLM 是你描述的目标，不是本次读取账号后的运行证明。</span></div>
+  </section>
+
+  <section class="section" id="flows">
+    <div class="sectionhead"><div><div class="eyebrow">02 / REQUEST FLOW</div><h2>逐条查看请求与鉴权如何流动</h2></div><p class="small">切换场景，再点步骤查看凭据如何流动。</p></div>
+    <div class="panel">
+      <div class="tabs" role="tablist" aria-label="请求链路场景">
+        <button class="tab" id="tab-target" role="tab" aria-controls="flow-panel" aria-selected="true" data-scenario="target">推荐目标：订阅 + 记忆<small>MemoryProxy 前置 · 需要代码适配</small></button>
+        <button class="tab" id="tab-current" role="tab" aria-controls="flow-panel" aria-selected="false" tabindex="-1" data-scenario="current">当前官方路由<small>配置已指向本地路由 · 无此记忆层</small></button>
+        <button class="tab" id="tab-api" role="tab" aria-controls="flow-panel" aria-selected="false" tabindex="-1" data-scenario="api">备选：官方 API + 记忆<small>CC Switch 前置 · API 按量计费</small></button>
+      </div>
+      <div id="flow-panel" role="tabpanel" aria-labelledby="tab-target" tabindex="0">
+        <div class="flowheading"><div><h3 id="flow-title"></h3><p id="flow-description"></p></div><div><span class="tag amber" id="flow-status"></span></div></div>
+        <div class="diagramwrap"><svg class="diagram" id="flow-svg" viewBox="0 0 1120 400" role="img" aria-labelledby="svg-title svg-desc"></svg></div>
+        <div class="flowfooter"><div class="callout" id="flow-benefit"></div><div class="callout amber" id="flow-caution"></div></div>
+        <div class="stepbox"><div class="stepnav" id="step-nav" aria-label="请求步骤"></div><div class="stepdetail" aria-live="polite"><div class="eyebrow" id="step-index"></div><h3 id="step-title"></h3><p id="step-description" class="muted"></p><span class="credential" id="step-credential"></span></div></div>
+      </div>
+    </div>
+    <noscript><p class="notice">本页流程切换需要 JavaScript。推荐链路：Codex → MemoryProxy（独立记忆身份头 + OAuth 原样保留）→ CC Switch → 官方 Codex 后端；该链路尚需代码适配。</p></noscript>
+  </section>
+
+  <section class="section" id="boundary">
+    <div class="sectionhead"><div><div class="eyebrow">03 / DESIGN BOUNDARY</div><h2>只设一个上游路由负责人</h2></div><p class="small">以下是设计约束；当前代码尚未实现全部约束。</p></div>
+    <div class="cols">
+      <article class="card"><div class="number">A / CC SWITCH</div><h3>保留官方供应商与路由能力</h3><ul><li><strong>Codex 当前供应商选 OpenAI Official。</strong>此路径固定官方 Codex backend，校验并透传客户端 OAuth；不等同于 Claude Code 页的 Codex OAuth 预设。</li><li><strong>仅启动本地路由服务。</strong>推荐方案中 Codex 的有效入口由独立 profile 或启动参数指向 MemoryProxy，避免路由接管把客户端改回 15721、绕过记忆层。</li><li><strong>由 Codex 客户端继续管理登录与刷新。</strong>不把 OAuth access token 写进 MemoryProxy 的静态上游 API Key。</li><li><strong>官方目标保持原有禁止故障转移的行为。</strong>主推方案不引入第三方备用模型，失败时暴露错误。</li></ul></article>
+      <article class="card"><div class="number">B / MEMORYPROXY</div><h3>增加 Codex 专用双凭据入口</h3><ul><li><strong>记忆身份：</strong>用 <code>x-tdai-user-key: sk-mem-...</code> 校验 Memory Core 用户，再绑定 Team / Agent / Task。</li><li><strong>模型身份：</strong><code>Authorization: Bearer &lt;OAuth&gt;</code>、<code>chatgpt-account-id</code> 与会话标识保留给 CC Switch。现有 Codex 鉴权尚不读取该独立记忆头。</li><li><strong>出站剥除记忆凭据。</strong>Codex 转发当前已过滤 <code>x-tdai-user-key</code>，适配须复用这条边界并覆盖辅助请求。</li><li><strong>固定下一跳到 CC Switch。</strong>该部署的全局 / per-agent API Key 留空，实例上游配置不覆盖 URL、model 或鉴权，避免重新改写 OAuth 和模型。</li></ul></article>
+    </div>
+    <div class="notice"><b>实际改动范围</b><span>优先在 MemoryProxy 增加显式、可选择的 Codex 身份提取策略；保持现有 Bearer / x-api-key 行为兼容。GitNexus 显示身份提取经 <code>stageAuth</code> 被 5 个 runner 共用，影响分析为 LOW、总计 7 个关联符号；实现应限定 Codex opt-in，不能直接改变所有调用方的鉴权优先级。</span></div>
+    <details><summary>为什么另外两种“直接串起来”的方法不成立？</summary><div class="cols"><div><h3>MemoryProxy → CC Switch，仍只用 sk-mem</h3><p class="muted small">MemoryProxy 能校验记忆用户，但 CC Switch 的 Codex OpenAI Official 路径会校验客户端传入的 OAuth。<code>sk-mem-...</code> 不会被自动换成该用户的 ChatGPT OAuth。</p></div><div><h3>CC Switch Official → MemoryProxy</h3><p class="muted small">Codex OpenAI Official 的上游地址由 CC Switch 固定，普通编辑供应商 base_url 不会把这条官方路径插到 MemoryProxy。若改 CC Switch 路由层来插入记忆服务，需承担更多官方适配与请求路径耦合。</p></div></div></details>
+    <details><summary>Claude Code 如何接入，并与 Codex 共用记忆？</summary><p class="small muted">Claude Code 可使用现有机制做另一条配置候选，不要求新增原生 Codex 的双凭据策略：记忆 Key 先交给 MemoryProxy，随后 CC Switch 用 Claude 页所选供应商的 API Key 或 managed OAuth 替换上游鉴权。此组合仍未联调。</p><div class="diagramwrap"><svg class="diagram" viewBox="0 0 1120 145" role="img" aria-label="Claude Code 发送 sk-mem 到 MemoryProxy，再到 CC Switch 的 Claude 路由，最终到 API 或 Codex OAuth 上游"><g fill="#edf2ff" stroke="#ccd8ff"><rect x="15" y="15" width="225" height="87" rx="13"/><rect x="300" y="15" width="225" height="87" rx="13"/><rect x="585" y="15" width="225" height="87" rx="13"/><rect x="870" y="15" width="225" height="87" rx="13"/></g><g fill="#365ee9" font-size="16" font-weight="650"><text x="32" y="48">Claude Code</text><text x="317" y="48">MemoryProxy</text><text x="602" y="48">CC Switch · Claude</text><text x="887" y="48">所选上游</text></g><g fill="#657189" font-size="11"><text x="32" y="77">Bearer / x-api-key = sk-mem</text><text x="317" y="77">/claude-code/default</text><text x="602" y="77">/v1/messages · 替换鉴权</text><text x="887" y="77">API 或 Codex OAuth 预设</text></g><g fill="#8e9fbe" font-size="24"><text x="260" y="68">→</text><text x="545" y="68">→</text><text x="830" y="68">→</text></g><text x="560" y="132" text-anchor="middle" fill="#147c68" font-size="12">MemoryProxy 共用 Memory Core；CC / Codex 选同一 Team / Agent 才共享对应记忆</text></svg></div><p class="small muted">需要为 <code>upstream.agents.claude-code</code> 自定义下一跳与空上游 Key，并避免实例覆盖；默认启动脚本会重写 YAML，需专用配置编排。Claude 页的 <code>Codex OAuth</code> 预设由 CC Switch 动态取 managed token 并转换协议，与原生 Codex 的客户端 OAuth 透传是两条路径。</p></details>
+    <details><summary>未来配置草图：保留官方登录，入口单独指向记忆层</summary><p class="small muted">以下仅表达适配完成后的配置关系，当前直接复制仍会遇到 MemoryProxy 鉴权失败。保留现有 provider、hooks 和登录文件；profile 是否在 CC Switch 重写配置后仍保留，需要实际读回验证。</p><div class="cols"><div><h3>Codex 新 profile · 拟议</h3><pre>[model_providers.memory_official]
+name = "Memory + official Codex"
+wire_api = "responses"
+requires_openai_auth = true
+supports_websockets = false
+base_url = "http://127.0.0.1:8096/codex/default"
+http_headers = { "x-tdai-user-key" = "&lt;memory user_key&gt;" }
+
+[profiles.memory_official]
+model_provider = "memory_official"
+model = "&lt;官方账户可用的模型&gt;"</pre></div><div><h3>MemoryProxy 下一跳 · 同机示意</h3><pre>upstream:
+  url: "http://127.0.0.1:15721/v1"
+  apiKey: ""
+  agents: {}</pre><p class="small muted">需要专用 YAML / 启动编排：现有部署脚本要求填写上游 Key，不能把这份草图当作现成的 .env 安装流程。<code>auth</code>、记忆注入和 Core 连接也需启用。</p><p class="small muted">若 MemoryProxy 在 Docker、CC Switch 在 Windows，容器的 127.0.0.1 指自己。实际地址、监听范围和 WSL / Windows 可达性单独验证；先做同机最短链路。</p></div></div></details>
+  </section>
+
+  <section class="section" id="integration">
+    <div class="sectionhead"><div><div class="eyebrow">04 / IMPLEMENTATION DESIGN</div><h2>直接接入当前代码：新增可选的 cc-Switch 上游模式</h2></div><span class="tag amber">本节为待实现设计</span></div>
+    <div class="cols"><article class="card"><div class="number">MODULE / CODING UPSTREAM</div><h3>用一个 HTTP adapter 处理编码请求出口</h3><p class="small muted">在 MemoryProxy 中集中定义 coding 上游 module，让 Codex 与 Anthropic runner 通过同一 interface 取得目标 URL 和凭据策略。cc-Switch adapter 根据客户端来源选择协议入口；现有 direct adapter 保持原行为。</p><ul><li>仅配置路由服务地址；供应商 ID、GLM Key、官方 OAuth 账号与模型映射继续由 cc-Switch / 客户端管理。</li><li>Codex 保留客户端 OAuth；Claude 请求由 cc-Switch 替换成 GLM Key。记忆身份先在 MemoryProxy 校验。</li><li>保留原生 Responses / Messages，协议转换交给 cc-Switch。v1 仅支持本提案的 Codex 与 Claude Code，其他客户端明确拒绝或维持 direct，不自动归到 Claude。</li><li>两类请求分别进入对应 app_type；不读取 cc-Switch 私有 SQLite，不跨进程调用 Rust / Tauri 内部命令。</li></ul></article><article class="card"><div class="number">MODULE / MEMORY LLM</div><h3>保留独立记忆模型，补齐 Proxy 内部调用</h3><p class="small muted">Core 的 <code>llm</code> 配置与 Knowledge 的 <code>LLM_MODE=custom</code> 已由 <code>MEMORY_LLM_*</code> 提供。本次设计保留这两条链路。</p><ul><li><code>resolveTaskDraftConfig</code> 虽支持 MEMORY_LLM 环境变量优先，但缺字段会回落主推理上游；不能默认认为所有记忆功能已经独立。</li><li>现有 <code>start-proxy.sh</code> 没有将 MEMORY_LLM 组注入 Proxy 容器。cc-Switch 模式需完整注入并校验 URL / Key / Model / Protocol，避免混用两组字段。</li><li>任务创建 / 更新草稿改用这组独立配置；缺配置时报明确错误，不从 Codex OAuth 或 Claude 当前模型补齐。</li><li>记忆配置不因 app 供应商热切换而改变；Core 的归档、抽取和 Knowledge 资产加工继续按既有机制运行。</li></ul></article></div>
+    <div class="panel" style="margin-top:20px"><div class="contract"><h3>拟议配置 interface · 只表达关系，当前程序尚不识别新字段</h3><div class="cols"><pre>upstream:
+  mode: cc-switch           # 拟新增；direct 为兼容默认值
+  ccSwitch:
+    baseUrl: http://127.0.0.1:15721
+
+# adapter 固定映射：
+# codex       → /v1/responses
+# claude-code → /v1/messages
+# 原生 Codex：OAuth 透传 + 独立记忆身份头</pre><pre># 现有独立记忆组继续保留
+MEMORY_LLM_BASE_URL=&lt;记忆模型端点&gt;
+MEMORY_LLM_API_KEY=&lt;记忆模型 Key&gt;
+MEMORY_LLM_MODEL=&lt;记忆模型名&gt;
+MEMORY_LLM_PROTOCOL=&lt;记忆模型协议&gt;
+
+# cc-Switch 模式不再要求填写全局编码模型 / Key
+# cc-Switch 分别管理 Claude 与 Codex 的供应商
+# 全组注入 Proxy，供记忆任务草稿使用</pre></div><p class="small muted">实际 host 取决于 Windows / WSL / Docker 部署。配置检查应识别模式：direct 继续要求原有 PROXY_UPSTREAM_*；cc-Switch 模式检查 router 地址、支持的客户端与完整记忆组。</p></div>
+      <div class="tablewrap"><table><thead><tr><th>待修改区域</th><th>实施内容</th><th>必须保留的行为</th></tr></thead><tbody>
+        <tr><td><code>types.ts / config.ts</code><br>新 coding 上游 adapter</td><td>新增 direct / cc-switch 模式；统一 URL、协议与凭据策略。启动时拒绝与该模式冲突的第二套编码路由配置；v1 中其他客户端使用 cc-switch 模式时返回明确的不支持错误。</td><td>旧 direct 模式与现有配置可继续使用。</td></tr>
+        <tr><td><code>stages/auth.ts</code><br><code>runners/codex.ts / anthropic.ts</code></td><td>Codex 双凭据；两类请求接入 HTTP adapter。cc-Switch 模式在全局 main-model、model gate、instance override、pool / cost-guard 选路前分支，避免再次改 model、Key、URL。</td><td>记忆鉴权、会话初始化、注入、归档、SSE 与工具调用。</td></tr>
+        <tr><td><code>modelsHandler.ts / server.ts</code><br>辅助请求转发</td><td>cc-Switch 模式不再返回 MemoryProxy 的价格表目录；模型发现对接 cc-Switch 行为，保留 query、<code>anthropic-version</code> 等判定信息；compact 保持 Codex。</td><td>direct 模式的本地模型目录不变；辅助请求不误做对话归档。</td></tr>
+        <tr><td><code>routes/session-task.ts</code><br><code>deploy/global-images/*.sh</code></td><td>Proxy 内记忆草稿完整使用 MEMORY_LLM 组；启动 / verify / 配置生成按模式工作，并将记忆环境变量注入 Proxy。</td><td>Core / Knowledge 独立记忆配置和已有数据存储方式。</td></tr>
+        <tr><td>客户端接入文档与观测</td><td>CC / Codex 入口固定在 MemoryProxy；cc-Switch 仅提供后方路由。记录应用类型、请求模型与下一跳，区分 cc-Switch 最终供应商的证据。</td><td>现有 provider、官方登录、hooks 与无关配置；不把 /status 最近供应商当路由依据。</td></tr>
+      </tbody></table></div>
+      <div class="contract small"><h3>HTTP 接入契约中要单独处理的两点</h3><ul><li><strong>共享模型发现入口：</strong><code>/v1/models</code> 会根据 <code>anthropic-version</code> 和 query 判定应用，并返回本地发布目录；它不是实时探测所有真实上游的接口。仅启动 router、没有对应 live 配置时，Codex 目录可能为空，需要验证专用 profile 与目录生成的配合。不要根据空目录直接判定模型调用不可用。</li><li><strong>状态与切换：</strong>HTTP <code>/status</code> 的 <code>current_provider</code> 是全局最近一次处理目标，并发时会变化。MemoryProxy 不用它选择模型；每个请求交 cc-Switch 解析该 app 的目标快照，切换仅影响该 app 后续请求。</li></ul></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sectionhead"><div><div class="eyebrow">05 / OPTIONS</div><h2>按你要保留的能力选择</h2></div></div>
+    <div class="panel tablewrap"><table><thead><tr><th>方案</th><th>官方 GPT 来源</th><th>自动记忆注入</th><th>改动与取舍</th></tr></thead><tbody>
+      <tr><td>当前官方路由</td><td>ChatGPT Codex 官方订阅路径</td><td>不经过本项目 MemoryProxy</td><td>保留现状，先验证基线；其他已安装的记忆工具不在本提案范围。</td></tr>
+      <tr class="recommend"><td><strong>订阅 + MemoryProxy 前置</strong><br><span class="tag">目标方案</span></td><td>CC Switch OpenAI Official + 客户端 OAuth</td><td class="pending">适配后验证</td><td>改 MemoryProxy 的 Codex 鉴权与配置编排；保持 CC Switch 官方路由实现。</td></tr>
+      <tr><td>API + CC Switch 前置</td><td>MemoryProxy 使用 OpenAI 官方 API Key</td><td class="pending">配置后验证</td><td>协议与鉴权机制已有；作为自定义供应商串联，需部署配置与真实请求联调。模型费用走 Platform API。</td></tr>
+    </tbody></table></div>
+    <div class="notice"><b>修正上一轮结论</b><span>“代理一概不能使用官方订阅”不成立，cc-Switch 已有官方 Codex 路由实现。但“已有路由”不代表 MemoryProxy 能直接加入；当前限制来自两层对同一个 Bearer 的不同解释。此外，<code>PROXY_UPSTREAM_MODEL</code> 不能当作所有运行路径的模型锁，仍需检查请求中的 model、实例覆盖和最终出站目标。</span></div>
+  </section>
+
+  <section class="section" id="worktrees">
+    <div class="sectionhead"><div><div class="eyebrow">WORKTREE / SHARED PROJECT CONTEXT</div><h2>同一仓库的 worktree 复用身份与资产，不按目录迁移记忆</h2></div><p class="small">已有机制与建议使用方式；未实现 Orca 自动绑定。</p></div>
+    <div class="cols"><article class="card"><h3>项目共享记忆的最小约定</h3><ul><li>为一个逻辑仓库固定一组 <strong>Team + 业务 Agent</strong>；主目录和各 worktree 使用同一组合。这里的业务 Agent 不等于 Codex / Claude Code 应用类型。</li><li><strong>L2/L3</strong> 按 Team + Agent 共享，忽略用户、Session、Task；不同目录并不会自动建立不同记忆空间。</li><li><strong>L1</strong> 召回跨 Session，但仍按 Team / User / Agent 及当前 Task 过滤。Task 按真实任务选择，不因新目录机械创建；不同 Task 不等于所有原子记忆自动互通。</li><li>每个会话保留自己的 Session。需要跨任务召回 L1 时，当前接口在没有 Task 时会放宽该维度；是否使用这种方式应按真实任务语义决定。</li></ul></article><article class="card"><h3>CodeGraph 是服务端资产</h3><ul><li>内置 CodeGraph 根据远端 repo_url 和登记的 branch，在 Knowledge 服务端克隆并索引；它不以客户端 cwd 作为资产 ID。</li><li>相同 Team / Agent 已绑定的资产可供多个 worktree 使用，<strong>新目录无需迁移或复制索引</strong>。</li><li>已注入的 <code>match / branch</code> 提示供模型比对工作区 git remote。它不是 Orca 自动发现或分支同步接口。</li><li>未 push、未提交与未跟踪代码不会自动进入远端资产。精确编辑看当前 worktree；需要远端新快照时再 sync。</li></ul></article></div>
+    <div class="notice"><b>项目与用户</b><span>在本方案的 Proxy 接入方式中，用户 Key 用于身份与权限；长期共享范围由 Team + Agent 决定，并非用户所有项目统一一份，也不会自动按磁盘目录分库。若两个无关仓库选择同一 Team / Agent，其长期记忆可能混在一起。建议把一个逻辑仓库映射到固定的 Team / Agent 组合。</span></div>
+    <details><summary>从手选到免重复选择：只补启动时的固定身份，不建新的索引同步系统</summary><p class="small muted">先在各 worktree 的新会话里选择同一 Team / Agent，即可验证共享。已有 header 预选支持 <code>x-team-id / x-agent-id / x-task-id</code>，后续可在启动配置中固定项目身份，减少重复手选；这不等于当前已经接入了 Orca 的 worktree 生命周期。本轮 Orca CLI 桥接被未签名脚本执行策略拦截，未验证本机自动继承行为。</p><p class="small muted">仓库长期经验可以共享；worktree 的未合并状态应保留分支、提交与任务语境，不能把它当成已经成立的主线事实。系统当前没有基于 worktree 的独立事实隔离保证。</p><p class="small"><a href="../research/2026-10-25-orca-worktree-memory.md">查看记忆隔离与 CodeGraph 源码证据</a></p></details>
+  </section>
+
+  <section class="section" id="orca-options">
+    <div class="sectionhead"><div><div class="eyebrow">ORCA / SETUP OPTIONS</div><h2>把 worktree 会话自动绑到固定 Team / Agent</h2></div><p class="small">五个可选方案：方案 5 在 Proxy 侧实现（待开发），方案 1–4 为客户端侧集成；均未安装、未修改。</p></div>
+    <div class="panel tablewrap"><table><thead><tr><th>方案</th><th>Orca 创建后脚本做什么</th><th>客户端怎样生效</th><th>适用情况</th></tr></thead><tbody>
+      <tr><td><strong>1 · 固定 ID + 启动文件</strong></td><td>Orca 项目配置里填一次 Team/Agent，为各 worktree 幂等生成小型启动入口。</td><td>入口启动原 Codex / Claude，携带项目预选头；保留所有原参数和认证。</td><td>最直观；前提是 Orca 能调用这个入口。每个 worktree 有少量生成文件。</td></tr>
+      <tr><td><strong>2 · Git 公共目录一份绑定</strong></td><td>用 ORCA_ROOT_PATH / Git common dir 找主项目，在公共 Git 目录确保一份 <code>tdai-project.json</code>。</td><td>通用包装器按当前 cwd 找公共目录，读取 Team/Agent，再调用原客户端；使用已有 Header 预选。</td><td>大量 worktree；不复制绑定、不改全局当前项目指针、不新增 Proxy 注册接口。须确认 Orca 启动命令可配置。</td></tr>
+      <tr><td><strong>3 · 共享绑定 + SessionStart Hook</strong></td><td>同方案 2，创建阶段只确保文件。</td><td>会话启动 hook 读取 cwd 与 session_id，向拟新增的 Proxy 绑定入口注册 Team/Agent。</td><td>保留 Orca 原生启动方式；需增加小型鉴权接口，并验证两端 session ID、同步时序与恢复语义，不能称为已有功能。</td></tr>
+      <tr><td><strong>4 · 全局目录映射 + 启动 Hook</strong></td><td>像 cmem-ensure-project 一样，登记规范化仓库根目录 / worktree 到 Team/Agent 的映射。</td><td>启动 hook 查共享映射，再走方案 3 的注册入口；也可配合方案 2 的包装器传头。</td><td>最接近现有 claude-mem 使用习惯；多项目统一管理，但多一个需加锁、原子更新的映射文件。</td></tr>
+      <tr class="recommend"><td><strong>5 · Proxy 侧身份解析</strong><br>当前推荐</td><td>不需要创建后脚本：仓库标记随 git 检出自动进入任何 worktree；个人目录前缀用拟新增的 <code>mem:bind-project</code> 登记一次。</td><td>Proxy 在 session-init 从 <code>body.system</code> / <code>body.instructions</code> 解析<strong>仓库绑定标记</strong>（AGENTS/CLAUDE.md 一行）与 <strong>Working directory</strong>（用户级前缀表），经既有租户校验后免表单注册。</td><td>客户端与 Orca 零改动、原生启动；一处覆盖全部 agent 来源与全部 worktree 创建方式（Orca、/implement-spec 临时 worktree、手动 git worktree）。需实现 Proxy 功能。</td></tr>
+    </tbody></table></div>
+    <div class="cols" style="margin-top:18px"><article class="card"><h3>推荐方案 5：Proxy 侧身份解析（双信号）</h3><p class="small muted">身份在服务端解析，客户端零改动。预选优先级：<code>header 预选 &gt; 仓库标记 &gt; 目录绑定 &gt; 交互表单</code>——命中即免表单注册，未命中或校验不过回退现有表单，失败模式就是现状。</p><ul class="small"><li>接线点：<code>stageSessionInitOrchestrate</code> 被 claude-code / codex / workbuddy / openai-chat 四个 runner 共用，header 预选就在这里组装；追加预选来源，一处覆盖全部客户端。</li><li>信号一 · 仓库标记：在业务仓库的 AGENTS.md / CLAUDE.md 提交一行 <code>tdai-binding</code> 标记。Claude Code 把它带进 <code>body.system</code>、Codex 带进 <code>body.instructions</code>；随 git 检出自动进入<strong>任何</strong> worktree——Orca 建、/implement-spec 建、手动建全覆盖，无需任何登记动作。业务 ID 非凭据，公司仓库可接受。</li><li>信号二 · 目录前缀：每用户「前缀 → Team/Agent」表，最长前缀匹配。覆盖不便提交标记的仓库（如外部开源仓库）与个人布局偏好；Orca 布局每仓库登记一条父目录前缀。</li><li>校验复用：<code>resolvePresetIdentity</code> 租户校验（值必须落在用户可见 teams[] 内）；标记对不可见 Team 的用户自然失效回退表单。绑定表按用户隔离，无提权面。</li><li>登记：<code>mem:bind-project</code> 在交互会话内输入登记，捕获客户端实际发送的 cwd 字符串，规避 WSL / 容器路径形态差异；无人在场的 subagent 会话不依赖它（靠标记信号）。</li></ul><p class="small"><a href="../research/2026-10-25-orca-worktree-memory.md">方案 5 源码证据、implement-spec 约束与对比</a></p></article><article class="card"><h3>备选方案 2：不改 Proxy 时的客户端方案</h3><p class="small muted">Git 公共目录一份非凭据绑定文件，由通用包装器读取并附预选头：</p><pre>{
+  "team_id": "team_xxx",
+  "agent_id": "agent_xxx"
+}</pre><p class="small muted">Orca 一行脚本（拟新增命令，未创建）：</p><pre>[ -x "$HOME/.local/bin/tdai-project" ] &amp;&amp;
+  "$HOME/.local/bin/tdai-project" ensure || true</pre><p class="small muted">前提是 Orca 启动命令可替换为包装器且保真 app-server 协议——两点均未验证，是方案 2 的主要风险；且不经包装器启动的会话（含 /implement-spec 的 subagent）不在覆盖范围内。方案 5 落地后它退居特殊场景；header 预选保持最高优先级，两者可组合。</p></article></div>
+    <div class="notice"><b>配置文件限制</b><span>不能把“给每个 worktree 写客户端局部配置”当作两客户端的通用解法。当前 OpenAI Docs 说明 Codex 项目层会忽略 model_provider / model_providers / profiles；Claude Code 的 local settings 在部分 worktree 场景下复用主 checkout 位置。包装器应保留原启动参数、stdin/stdout 和信号，尤其不能破坏 Orca 的 app-server 协议。</span></div>
+    <p class="small muted" style="margin-top:15px">2026-10-25 复评（结合两仓库源码）后，主推由方案 2 改为方案 5：方案 2 的风险集中在无法控制的外部环节（Orca 启动命令可替换性、包装器协议保真、Codex 用户层 header 配置），且覆盖不了不经包装器启动的会话——包括 /implement-spec 这类 skill 自建的临时 worktree；方案 5 的全部改动落在自有代码 MemoryProxy 内，对其他用户也是正向产品能力（目录即项目、仓库即身份）。不愿改 Proxy 时仍可用方案 2；若 Orca 不能调用包装器，再考虑方案 3（在现有 SessionStart 基础上新增受鉴权注册入口，需验证 session ID 对齐与时序，并与 claude-mem hooks 共存）。<a href="../research/2026-10-25-orca-worktree-memory.md">依据与约束见研究记录</a>。</p>
+  </section>
+
+  <section class="section" id="validation">
+    <div class="sectionhead"><div><div class="eyebrow">06 / VALIDATION ORDER</div><h2>验证成功，才把方案变成日常入口</h2></div><p class="small">本次只完成设计与源码核对，以下真实链路验收尚未执行。</p></div>
+    <div class="phases">
+      <article class="phase"><div class="number">PHASE 1</div><h3>先证明现有官方路由</h3><p>确认 CC Switch 正在服务、Codex 选中官方供应商，完成一轮真实推理；记录路由供应商、最终域名、模型、请求标识与账号用量。</p><div class="accept"><strong>通过条件：</strong>真实推理成功，最终为官方 Codex 目标，未切到其他供应商。界面模型名与 /models 列表不单独作为证据。</div></article>
+      <article class="phase"><div class="number">PHASE 2</div><h3>验证双凭据与完整协议</h3><p>实现 Codex opt-in 身份提取，启用记忆入口；验证记忆 Key 拒绝与 OAuth 错误各在对应层出现。检查流式输出、多轮工具、Plan 模式初始化、compact 及客户端实际触发的辅助请求。</p><div class="accept"><strong>通过条件：</strong>记忆身份正确、OAuth 未被替换，内部记忆头未出站，无双向循环；实际请求所需的 header、路径与响应事件完整。</div></article>
+      <article class="phase"><div class="number">PHASE 3</div><h3>证明记忆落库与回读</h3><p>完成 Team / Agent / Task 绑定，核对本轮 L0 落库；在后续请求确认相关记忆确实被注入。再检查 CC Switch 切换、客户端新会话、登录刷新及 Windows / WSL / Docker 网络。</p><div class="accept"><strong>通过条件：</strong>同时有官方推理证据与记忆读写证据；L1 / L2 / L3 后台生成按实际触发与完成状态记录，不能由 HTTP 200 推断。</div></article>
+    </div>
+    <div class="panel tablewrap" style="margin-top:18px"><table><thead><tr><th>新增并发验收</th><th>应观察到的结果</th></tr></thead><tbody><tr><td>Codex 官方 GPT 与 Claude Code GLM 同时连续请求</td><td>cc-Switch 日志分别归属 codex / claude 和对应供应商；两个客户端都完成推理，OAuth / GLM Key 不串用。</td></tr><tr><td>Claude 请求进行中切换 Claude 供应商，再发新请求</td><td>已在执行的请求使用捕获的目标，新 Claude 请求使用新目标；Codex 请求和 MEMORY_LLM 配置不变。模型映射以新供应商配置为准。</td></tr><tr><td>同时触发记忆抽取与任务草稿</td><td>Core / Knowledge / Proxy 草稿都使用独立记忆配置；不进入 cc-Switch 的编码模型路由。缺记忆配置时不以用户 OAuth 或 GLM Key 兜底。</td></tr><tr><td>访问模型目录、compact，并重启客户端</td><td>模型目录形状、query 与协议头符合各客户端预期；Codex compact 仍进入 codex，记忆入口未被配置接管覆盖。</td></tr><tr><td>关闭 cc-Switch</td><td>编码请求返回明确路由不可达错误，不改走其他供应商；独立记忆加工的配置仍保持原值，其执行按既有 Core / Knowledge 状态处理。</td></tr><tr><td>方案 5 落地后：主 checkout 与 Orca worktree 各开新会话</td><td>session-init 提取的 Working directory 与实际目录一致（Claude Code 看 <code>body.system</code> env 块、Codex 看 <code>body.instructions</code> environment_context）；命中前缀免表单注册，未登记前缀回退交互表单；header 预选仍优先于目录绑定。</td></tr><tr><td>方案 5 落地后：带 <code>tdai-binding</code> 标记的仓库 + /implement-spec 子代理会话</td><td>标记从 system prompt 正确解析并命中 Team/Agent；subagent 新会话不弹交互表单（若 subagent 请求携带父会话 session_id 则直接继承，需实测确认）；标记指向用户不可见 Team 时回退表单，不报错不越权。</td></tr></tbody></table></div>
+    <details><summary>如何证明“实际走的是官方 GPT”？</summary><ul class="small muted"><li>订阅方案同时核对 CC Switch 选中的 OpenAI Official、实际官方目标、客户端 OAuth 账号与真实推理结果；保持官方目标禁止故障转移。</li><li>API 方案核对 MemoryProxy 最终出站为 <code>api.openai.com</code>，再对照 OpenAI Platform 的该项目用量。MemoryProxy 中看到的 <code>upstream_url</code> 若只是 CC Switch 本地地址，只能证明下一跳。</li><li>MemoryProxy 存在客户端模型名回写逻辑；模型选择器、响应展示名和供应商卡片标签都不能替代完整出站证据。</li><li>记忆组 <code>MEMORY_LLM_*</code> 仍可使用独立模型，其后台加工费用与 Codex 官方订阅 / 推理 API 分开计算。</li></ul></details>
+  </section>
+
+  <section class="section" id="sources">
+    <div class="sectionhead"><div><div class="eyebrow">07 / EVIDENCE</div><h2>结论来自哪些资料</h2></div><p class="small">核对日期：2026-10-25 · 在线文档与本地源码分开取证。</p></div>
+    <div class="sources">
+      <div class="source"><a href="https://ccswitch.io/zh/docs?section=proxy" target="_blank" rel="noreferrer">CC Switch：本地路由与高可用</a><p>监听端口、配置接管、协议转换、官方 Codex 路由例外。另见 <a href="https://ccswitch.io/zh/tutorials" target="_blank" rel="noreferrer">用户提供的攻略索引</a> 与 <a href="https://ccswitch.io/zh/docs?section=getting-started" target="_blank" rel="noreferrer">快速入门</a>。</p></div>
+      <div class="source"><a href="https://github.com/farion1231/cc-switch/blob/de0a235ad6389ce4afa333b472cdee615a3f3987/src-tauri/src/proxy/providers/codex.rs#L301-L346" target="_blank" rel="noreferrer">CC Switch：Codex 官方适配</a><p><code>codex.rs</code>：OpenAI Official 的鉴权与固定目标；<code>forwarder.rs</code>：官方 OAuth 校验与透传。具体行号与其他路径见研究记录。</p></div>
+      <div class="source"><a href="../../MemoryProxy/src/pipeline/stages/auth.ts">MemoryProxy：记忆身份提取</a><p><code>extractApiKeyFromContext / stageAuth</code> 当前只读取 Bearer / x-api-key；<a href="../../MemoryProxy/src/pipeline/runners/codex.ts">Codex runner</a> 支持上游凭据替换与 per-agent / instance 覆盖。</p></div>
+      <div class="source"><a href="../../MemoryProxy/src/common/constants.ts">MemoryProxy：出站 Header 边界</a><p>现有 Codex 过滤内部记忆身份头；<a href="../../MemoryProxy/src/response-model-mask.ts">模型名回写</a> 与 <a href="../../MemoryProxy/src/pipeline/stages/instance-upstream-responses.ts">实例上游覆盖</a> 说明为什么要核对真实路由。</p></div>
+      <div class="source"><a href="https://learn.chatgpt.com/docs/auth" target="_blank" rel="noreferrer">OpenAI Docs：Codex 鉴权</a><p>区分 ChatGPT 登录与 API Key 计费。CC Switch 的兼容实现由其源码证明，不能由 OpenAI 登录文档推导为已验证集成。</p></div>
+      <div class="source"><a href="../research/2026-10-25-cc-switch-routing.md">完整调研记录 · Markdown</a><p>保存双仓源码位置、版本、在线资料冲突、两条 OAuth 路径的差异与待验证问题；便于后续把提案转成实现计划。</p></div>
+      <div class="source"><a href="https://github.com/farion1231/cc-switch/blob/de0a235ad6389ce4afa333b472cdee615a3f3987/src-tauri/src/proxy/handlers.rs#L249" target="_blank" rel="noreferrer">CC Switch：HTTP 入口绑定应用类型</a><p>Messages → Claude；Responses → Codex。<code>mode/current.rs</code> 按 app 读取代理目标或直连供应商；请求 context 保存所选目标快照。</p></div>
+      <div class="source"><a href="../../MemoryProxy/src/routes/session-task.ts">MemoryProxy：任务草稿的环境变量与回退</a><p><code>resolveTaskDraftConfig</code> 的逐字段回退说明为什么要补齐独立配置；<a href="../../deploy/global-images/start-proxy.sh">Proxy 启动脚本</a> 当前未将 MEMORY_LLM 组注入容器。</p></div>
+    </div>
+  </section>
+  <footer class="footer"><div>独立 HTML · 无外部字体、脚本或图表依赖 · 无真实凭据<br>交付范围：方案、流程与证据；服务配置及鉴权代码未修改。</div><button class="printbtn" id="print-button" type="button">打印 / 保存为 PDF</button></footer>
+</main>
+<script>
+  const scenarios = {
+    target: {
+      title: '推荐目标：记忆先处理上下文，CC Switch 再走官方路由',
+      description: '原生 Codex 仍使用官方 OAuth；MemoryProxy 仅新增独立记忆身份校验。',
+      status: '需适配 · 未实测',
+      benefit: ['保留的能力', '官方登录与客户端 Token 刷新、CC Switch 官方路由，以及 Team / Agent / Task 下的记忆注入与归档。'],
+      caution: ['当前缺口', 'MemoryProxy 尚不把 x-tdai-user-key 用作 Codex 入站鉴权；仅修改 URL 与 Key 无法跑通这条链路。'],
+      nodes: [
+        ['Codex', '官方 OAuth + 独立记忆头', 'Responses · HTTP / SSE', 'blue'],
+        ['MemoryProxy', '拟新增 Codex 双凭据', ':8096 /codex/default', 'amber'],
+        ['CC Switch', 'OpenAI Official · 透传 OAuth', ':15721 /v1/responses', 'blue'],
+        ['OpenAI 官方 Codex', 'ChatGPT 订阅链路', 'chatgpt.com/backend-api/codex', 'green']
+      ],
+      edges: ['OAuth + sk-mem 身份', '仅保留 OAuth · Responses', '官方 OAuth 请求'],
+      memoryIndex: 1,
+      steps: [
+        ['客户端提交两种身份', 'Codex 用现有登录态发出官方 OAuth，同时在独立 Header 附带 Memory Core 的业务用户 Key。这个 Header 只用于记忆权限。', 'Authorization: Bearer <OAuth> | x-tdai-user-key: <sk-mem>'],
+        ['记忆层校验与注入', '拟新增的 Codex 策略校验记忆 Key，完成 Team / Agent / Task 绑定，从 Memory Core 读取可用资产并注入上下文。原始 OAuth 保持不变。', 'memory identity → Core / model identity → preserve'],
+        ['移除内部身份，进入路由', 'MemoryProxy 剥除内部记忆身份头，保留官方 OAuth、账户与会话 Header，转发到 CC Switch 的 Responses 入口。禁止部署中的静态上游 Key 或实例覆盖替换它。', 'POST :15721/v1/responses | OAuth unchanged'],
+        ['CC Switch 选择官方目标', 'Codex 当前供应商保持 OpenAI Official。CC Switch 校验客户端 OAuth，再把请求发到其固定的官方 Codex backend；官方错误不会触发第三方故障转移。', 'OpenAI Official → official Codex backend'],
+        ['响应返回并归档', '流式响应和工具调用逐层返回，MemoryProxy 根据已绑定的记忆身份归档本轮。是否生成更高层记忆取决于后台触发与处理结果。', 'official → CC Switch → MemoryProxy → Codex']
+      ]
+    },
+    current: {
+      title: '当前配置：Codex 的入口已经指向 CC Switch 默认端口',
+      description: '这是当前 config.toml 读回结果；尚未探测服务状态，也未发起真实推理。',
+      status: '配置已见 · 运行待验',
+      benefit: ['已有基础', 'requires_openai_auth=true，wire_api=responses，base_url 指向 127.0.0.1:15721/v1。可先验证官方路由基线。'],
+      caution: ['证据边界', '本次未读取真实 Token，也未核实当前选择的供应商或实际出站；本项目 MemoryProxy 尚未进入这条链路。'],
+      nodes: [
+        ['Codex', 'requires_openai_auth = true', '现有 config.toml', 'blue'],
+        ['CC Switch', '若当前选择 OpenAI Official', ':15721 /v1/responses', 'blue'],
+        ['OpenAI 官方 Codex', '官方路由基线待确认', 'ChatGPT 订阅路径', 'green']
+      ],
+      edges: ['客户端 OAuth · Responses', '官方目标 · 待实际确认'],
+      memoryIndex: null,
+      steps: [
+        ['读取当前配置', '当前 custom provider 指向本地 15721 端口，开启官方鉴权，关闭 WebSocket。配置与上一轮会话中的“没有 base_url”已经不同，应以当前文件为准。', 'base_url = http://127.0.0.1:15721/v1'],
+        ['核对路由当前供应商', '应在 CC Switch 中确认 Codex 当前目标确实是 OpenAI Official。仅凭 provider 的显示名叫 OpenAI，不能证明实际走了官方模型。', 'configured endpoint ≠ verified upstream'],
+        ['完成一轮真实推理', '在原有入口先完成真实请求，核对最终目标、模型与账号用量。该步骤通过后，再加入 MemoryProxy，便于定位新增问题。', 'baseline inference: pending']
+      ]
+    },
+    api: {
+      title: 'API 备选：把 MemoryProxy 加成 CC Switch 的自定义供应商',
+      description: '已有协议与鉴权机制可表达；仍需部署配置和真实请求验证。该链路走 API 计费。',
+      status: '机制已有 · 组合待验',
+      benefit: ['配置关系更直接', 'CC Switch 管客户端入口，把 sk-mem 作为该自定义供应商凭据；MemoryProxy 用自己的 OpenAI API Key 调官方 API。'],
+      caution: ['能力取舍', '这是官方 API 模型，消耗 Platform API 用量；保留 auth.json 登录状态不等于模型请求使用 ChatGPT 订阅。'],
+      nodes: [
+        ['Codex', '第三方 provider / 路由占位 Key', 'Responses · HTTP / SSE', 'blue'],
+        ['CC Switch', '自定义供应商：MemoryProxy', ':15721 · Responses 透传', 'blue'],
+        ['MemoryProxy', 'sk-mem 鉴权 + 记忆注入', ':8096 /codex/default', 'green'],
+        ['OpenAI 官方 API', '独立 API Key', 'api.openai.com/v1/responses', 'green']
+      ],
+      edges: ['路由占位凭据', '供应商凭据 = sk-mem', '服务端 OpenAI API Key'],
+      memoryIndex: 2,
+      steps: [
+        ['Codex 使用自定义 API provider', '客户端请求进入 CC Switch 的 Codex 路由。这里选择的是自定义 MemoryProxy 供应商，不能使用固定上游地址的 OpenAI Official 卡片来代替。', 'custom provider → CC Switch'],
+        ['路由注入记忆凭据', '该供应商使用原生 Responses，base URL 指向 MemoryProxy 的 /codex/default，供应商 Key 使用业务用户 sk-mem。路由注入这把 Key，而非 OAuth。', 'POST :8096/codex/default/responses | Bearer <sk-mem>'],
+        ['MemoryProxy 校验并处理记忆', '现有鉴权能够把 Bearer sk-mem 解析为记忆用户，再完成记忆注入与归档。MemoryProxy 的下一跳是官方 API，不要再次指回同一个 CC Switch 路由。', 'sk-mem → Memory Core user / Team / Agent'],
+        ['MemoryProxy 调用官方 API', 'MemoryProxy 以服务端配置的 OpenAI API Key 替换出站鉴权，发往 api.openai.com；请求模型应为该 API 账户有权使用的模型。', 'api.openai.com | Bearer <OpenAI API key>'],
+        ['核对 API 用量与记忆读写', '检查最终出站和 Platform API 用量，同时验证记忆归档与后续召回。不能把 CC Switch 的本地 Token 成本估算当作 OpenAI 账单。', 'Platform API billing + Memory Core evidence']
+      ]
+    }
+  };
+  let selected = 'target';
+  const el = id => document.getElementById(id);
+  const escapeHtml = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  function drawFlow(data) {
+    const xs = data.nodes.length === 4 ? [15,300,585,870] : [90,455,820];
+    const width = 225, y = 98, height = 106;
+    const colors = {blue:['#edf2ff','#365ee9'],amber:['#fff5df','#9a5e0d'],green:['#e9f7f1','#147c68']};
+    let svg = '<title id="svg-title">'+escapeHtml(data.title)+'</title><desc id="svg-desc">'+escapeHtml(data.nodes.map(n=>n[0]).join(' → '))+'。'+escapeHtml(data.caution[1])+'</desc><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto-start-reverse"><path d="M0 0 L8 4 L0 8" fill="none" stroke="#8e9fbe" stroke-width="1.4"/></marker></defs>';
+    data.nodes.forEach((node,i)=>{
+      const [bg,fg]=colors[node[3]];
+      svg+='<g><rect x="'+xs[i]+'" y="'+y+'" width="'+width+'" height="'+height+'" rx="16" fill="'+bg+'" stroke="'+fg+'" stroke-opacity=".2"/><text x="'+(xs[i]+18)+'" y="'+(y+31)+'" fill="'+fg+'" font-size="17" font-weight="700">'+escapeHtml(node[0])+'</text><text x="'+(xs[i]+18)+'" y="'+(y+60)+'" fill="#52617c" font-size="12">'+escapeHtml(node[1])+'</text><text x="'+(xs[i]+18)+'" y="'+(y+83)+'" fill="#657189" font-size="10.8">'+escapeHtml(node[2])+'</text></g>';
+      if(i<data.nodes.length-1){const x1=xs[i]+width+7,x2=xs[i+1]-9;svg+='<path d="M'+x1+' '+(y+height/2)+' H'+x2+'" stroke="#8e9fbe" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/><text x="'+((xs[i]+width+xs[i+1])/2)+'" y="'+(y-17)+'" fill="#657189" font-size="10.8" text-anchor="middle">'+escapeHtml(data.edges[i])+'</text>';}
+    });
+    const left=xs[0]+width/2,right=xs.at(-1)+width/2;
+    svg+='<path d="M'+right+' 217 V248 H'+left+' V217" stroke="#a4b2ca" stroke-dasharray="5 5" stroke-width="1.3" fill="none" marker-end="url(#arrow)"/><text x="560" y="272" text-anchor="middle" fill="#657189" font-size="11">响应反向返回 · SSE / 工具调用 · 辅助请求需单独验证</text>';
+    if(data.memoryIndex!==null){const mx=xs[data.memoryIndex]+width/2;svg+='<path d="M'+mx+' 204 V302" stroke="#147c68" stroke-width="1.6" stroke-dasharray="4 4" marker-end="url(#arrow)"/><rect x="'+(mx-136)+'" y="311" width="272" height="65" rx="13" fill="#f1faf6" stroke="#c6e5da"/><text x="'+mx+'" y="337" text-anchor="middle" fill="#147c68" font-size="14" font-weight="650">Memory Core / Knowledge</text><text x="'+mx+'" y="359" text-anchor="middle" fill="#657189" font-size="11">记忆 · Team / Agent / Task · CodeGraph 资产</text>';}
+    else svg+='<text x="560" y="340" text-anchor="middle" fill="#8b97ac" font-size="13">本项目的 MemoryProxy / Memory Core 不在该链路中</text>';
+    el('flow-svg').innerHTML=svg;
+  }
+  function selectStep(index) {
+    const step=scenarios[selected].steps[index];
+    el('step-index').textContent='STEP '+String(index+1).padStart(2,'0');
+    el('step-title').textContent=step[0];el('step-description').textContent=step[1];el('step-credential').textContent=step[2];
+    document.querySelectorAll('.step').forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+  }
+  function selectScenario(key) {
+    selected=key;const data=scenarios[key];
+    document.querySelectorAll('.tab').forEach(button=>{const active=button.dataset.scenario===key;button.setAttribute('aria-selected',String(active));button.tabIndex=active?0:-1;});
+    el('flow-panel').setAttribute('aria-labelledby','tab-'+key);
+    el('flow-title').textContent=data.title;el('flow-description').textContent=data.description;el('flow-status').textContent=data.status;
+    ['benefit','caution'].forEach(type=>{el('flow-'+type).innerHTML='<strong>'+escapeHtml(data[type][0])+'</strong>'+escapeHtml(data[type][1]);});
+    drawFlow(data);
+    el('step-nav').replaceChildren(...data.steps.map((step,i)=>{const button=document.createElement('button');button.type='button';button.className='step';button.setAttribute('aria-pressed',String(i===0));button.innerHTML='<span class="num">'+(i+1)+'</span><span>'+escapeHtml(step[0])+'</span>';button.addEventListener('click',()=>selectStep(i));return button;}));
+    selectStep(0);
+  }
+  document.querySelectorAll('.tab').forEach((button,i,buttons)=>{
+    button.addEventListener('click',()=>selectScenario(button.dataset.scenario));
+    button.addEventListener('keydown',event=>{let next;if(event.key==='ArrowRight')next=(i+1)%buttons.length;else if(event.key==='ArrowLeft')next=(i+buttons.length-1)%buttons.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=buttons.length-1;else return;event.preventDefault();buttons[next].focus();selectScenario(buttons[next].dataset.scenario);});
+  });
+  el('print-button').addEventListener('click',()=>window.print());
+  let demoClaudeIsGlm=true;
+  el('demo-switch-claude').addEventListener('click',()=>{
+    demoClaudeIsGlm=!demoClaudeIsGlm;
+    el('demo-claude-provider').textContent=demoClaudeIsGlm?'GLM':'另一 Claude 供应商';
+    el('demo-claude-caption').textContent=demoClaudeIsGlm?'Claude 页：GLM 供应商配置':'Claude 页：新供应商配置';
+    el('demo-status').textContent=demoClaudeIsGlm?'已恢复演示：Claude = GLM；Codex 与独立记忆配置未变。':'仅演示 Claude 后续请求换供应商；Codex = 官方订阅，MEMORY_LLM 配置未变。';
+    el('demo-switch-claude').textContent=demoClaudeIsGlm?'演示切换 Claude 供应商':'恢复 GLM 演示';
+  });
+  selectScenario('target');
+</script>
+</body>
+</html>

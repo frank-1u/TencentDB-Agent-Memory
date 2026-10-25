@@ -42,3 +42,17 @@ This project is indexed by GitNexus as **TencentDB-Agent-Memory** (38073 symbols
 | Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus-cli/SKILL.md` |
 
 <!-- gitnexus:end -->
+
+## Agent skills
+
+### Issue tracker
+
+GitHub Issues，固定在可写 fork `frank-1u/TencentDB-Agent-Memory`（上游 `origin` 只读，所有 `gh` 命令显式 `-R frank-1u/TencentDB-Agent-Memory`）. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+五个 canonical labels 原样使用：`needs-triage` / `needs-info` / `ready-for-agent` / `ready-for-human` / `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context（root `GLOSSARY.md` + `docs/adr/`；尚不存在时静默继续，由 `/domain-modeling` 懒创建）. See `docs/agents/domain.md`.
